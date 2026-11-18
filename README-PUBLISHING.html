@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#100c19">
+<title>CHEMOSPHERE 2026 | GitHub Publishing Guide</title>
+<style>
+:root{color-scheme:dark;--gold:#f5d58a;--cream:#fff3dc;--muted:#cbbbd2}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% 0%,#342044,#171022 42%,#090611 100%);color:var(--cream);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}
+main{width:min(900px,100%);margin:auto;padding:clamp(20px,5vw,48px)}
+header,.panel{border:1px solid #9d7947;border-radius:18px;background:#ffffff09;padding:clamp(20px,4vw,30px);margin-bottom:20px}
+.eyebrow{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:#d9bd86}
+h1,h2{font-family:Georgia,serif;color:var(--gold);line-height:1.2}
+h1{font-size:clamp(2rem,7vw,3.5rem);margin:10px 0}
+h2{font-size:1.45rem;margin-top:0}
+p,li{color:#e5d8e8}
+code{overflow-wrap:anywhere;color:#ffe4a4;background:#090611;padding:3px 6px;border-radius:5px}
+a{color:#f5d58a}
+.step{display:grid;grid-template-columns:38px 1fr;gap:14px;align-items:start;margin:18px 0}
+.number{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(130deg,#fff1b8,#bd8438);color:#211629;font-weight:800}
+.button{display:inline-block;margin:7px 8px 0 0;padding:11px 16px;border-radius:9px;background:linear-gradient(110deg,#fff1b8,#d59a3c);color:#211629;text-decoration:none;font-weight:750}
+.small{font-size:.88rem;color:#bba9c4}
+.warning{border-left:3px solid #d9a64c;padding:10px 14px;background:#d9a64c12}
+footer{text-align:center;color:#a995b3;font-size:.8rem;padding:12px}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div class="eyebrow">Department of Chemistry · Under the Alchemy Association</div>
+  <h1>CHEMOSPHERE 2026</h1>
+  <p>Publishing guide for your animated invitation and QR-code generator using free GitHub Pages hosting.</p>
+  <a class="button" href="https://github.com/new" target="_blank" rel="noopener">Create GitHub repository</a>
+  <a class="button" href="https://github.com" target="_blank" rel="noopener">Open GitHub</a>
+</header>
+
+<section class="panel">
+<h2>1. Files to upload</h2>
+<ul>
+<li><code>index.html</code> — your animated CHEMOSPHERE invitation. This is the homepage visitors see after scanning.</li>
+<li><code>qr-maker.html</code> — creates and downloads the QR code after the site is published.</li>
+<li><code>README-PUBLISHING.html</code> — this publishing guide (optional to keep in the repository).</li>
+</ul>
+<p class="small">Keep all files in the repository's top-level (root) folder. Do not put index.html inside another folder.</p>
+</section>
+
+<section class="panel">
+<h2>2. Create the repository</h2>
+<div class="step"><div class="number">1</div><div>Sign in to GitHub as <strong>nasifjishan28-tech</strong> (or the account that will own the website).</div></div>
+<div class="step"><div class="number">2</div><div>Choose <strong>New repository</strong>. Enter the repository name <code>chemosphere-2026</code>.</div></div>
+<div class="step"><div class="number">3</div><div>Set visibility to <strong>Public</strong> for GitHub Free Pages hosting. Select <strong>Create repository</strong>.</div></div>
+</section>
+
+<section class="panel">
+<h2>3. Upload the website files</h2>
+<div class="step"><div class="number">4</div><div>Inside the new repository, choose <strong>Add file → Upload files</strong>.</div></div>
+<div class="step"><div class="number">5</div><div>Upload <code>index.html</code>, <code>qr-maker.html</code>, and optionally <code>README-PUBLISHING.html</code>. Confirm the filenames are exactly as written.</div></div>
+<div class="step"><div class="number">6</div><div>Scroll down and choose <strong>Commit changes</strong>.</div></div>
+</section>
+
+<section class="panel">
+<h2>4. Enable GitHub Pages</h2>
+<div class="step"><div class="number">7</div><div>Open the repository's <strong>Settings</strong> tab, then select <strong>Pages</strong> in the left sidebar.</div></div>
+<div class="step"><div class="number">8</div><div>Under <strong>Build and deployment</strong>, set Source to <strong>Deploy from a branch</strong>.</div></div>
+<div class="step"><div class="number">9</div><div>Choose branch <code>main</code> and folder <code>/(root)</code>, then select <strong>Save</strong>.</div></div>
+<div class="step"><div class="number">10</div><div>Wait for the deployment to finish. GitHub Pages will show the published website address in Settings → Pages.</div></div>
+<p class="warning">Expected URL for this account and repository: <code>https://nasifjishan28-tech.github.io/chemosphere-2026/</code>. This is only an expected address; use the exact URL GitHub Pages displays after successful deployment.</p>
+</section>
+
+<section class="panel">
+<h2>5. Generate the final QR code</h2>
+<div class="step"><div class="number">11</div><div>Open the QR maker page at <code>https://nasifjishan28-tech.github.io/chemosphere-2026/qr-maker.html</code> after deployment.</div></div>
+<div class="step"><div class="number">12</div><div>Paste the exact published invitation homepage URL into the input field and tap <strong>Generate QR code</strong>.</div></div>
+<div class="step"><div class="number">13</div><div>Tap <strong>Download PNG</strong>. The file will be named <code>CHEMOSPHERE-2026-QR.png</code>.</div></div>
+<div class="step"><div class="number">14</div><div>Scan the PNG from another phone. Confirm it opens the invitation, the Enter button works, and the animation and sound behave as expected.</div></div>
+</section>
+
+<section class="panel">
+<h2>Important before printing</h2>
+<ul>
+<li>Do not generate or print the final QR until GitHub Pages shows the site is live.</li>
+<li>Use the homepage URL in the QR, not the QR-maker URL.</li>
+<li>Do not rename the repository or change its Pages URL after printing.</li>
+<li>Keep the repository public if using GitHub Free Pages.</li>
+<li>The QR maker loads a QR-code JavaScript library from a CDN, so an internet connection is required when generating the QR.</li>
+<li>GitHub Pages is static hosting; no backend or paid API is needed for this invitation.</li>
+</ul>
+</section>
+
+<section class="panel">
+<h2>Official help</h2>
+<p><a href="https://docs.github.com/en/pages/quickstart" target="_blank" rel="noopener">GitHub Pages quickstart</a></p>
+<p><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site" target="_blank" rel="noopener">Creating a GitHub Pages site</a></p>
+</section>
+<footer>CHEMOSPHERE 2026 · Department of Chemistry · Alchemy Association</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#100c19">
+<title>CHEMOSPHERE 2026 | QR Code Maker</title>
+<style>
+:root{color-scheme:dark;--gold:#f5d58a;--cream:#fff3dc;--muted:#cbbbd2}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;min-height:100svh;padding:22px;background:radial-gradient(ellipse at 50% 10%,#342044,#171022 48%,#090611 100%);color:var(--cream);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif;display:grid;place-items:center}
+main{width:min(100%,560px);padding:clamp(22px,5vw,34px);border:1px solid #9d7947;border-radius:22px;background:linear-gradient(145deg,#ffffff12,#ffffff04);box-shadow:0 24px 80px #0008;text-align:center}
+.eyebrow{font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:#d9bd86}
+h1{font-family:Georgia,serif;font-size:clamp(1.55rem,6vw,2.35rem);line-height:1.15;color:var(--gold);margin:10px 0}
+p{color:var(--muted);margin:10px 0 18px}
+label{display:block;text-align:left;font-weight:650;margin:20px 0 8px}
+input{width:100%;min-height:50px;border:1px solid #8d744f;border-radius:11px;padding:13px 14px;background:#100c19;color:white;font:inherit}
+input:focus{outline:2px solid var(--gold);outline-offset:2px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+button{flex:1 1 160px;min-height:48px;border:0;border-radius:10px;padding:12px 16px;background:linear-gradient(110deg,#fff1b8,#d59a3c);color:#211629;font-weight:750;font-size:.95rem;cursor:pointer}
+button.secondary{background:#33263f;color:#fff0d7;border:1px solid #8d744f}
+button:disabled{opacity:.45;cursor:not-allowed}
+#status{min-height:26px;margin:14px 0 0;font-size:.9rem;color:#f5d58a}
+#qrWrap{display:none;margin:22px auto 8px;padding:16px;width:max-content;max-width:100%;background:white;border-radius:14px;box-shadow:0 8px 28px #0005}
+#qrWrap img,#qrWrap canvas{display:block;width:min(280px,65vw);height:auto;max-width:100%}
+.note{font-size:.82rem;color:#bba9c4;margin-top:20px}
+a{color:#f5d58a}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Department of Chemistry · Alchemy Association</div>
+  <h1>CHEMOSPHERE 2026</h1>
+  <p>Create a scannable QR code that opens your animated invitation webpage.</p>
+
+  <label for="siteUrl">Published invitation URL</label>
+  <input id="siteUrl" type="url" inputmode="url" autocomplete="url"
+    placeholder="https://your-username.github.io/chemosphere-2026/"
+    aria-describedby="urlHelp">
+  <div id="urlHelp" class="note">Paste the exact HTTPS address shown in GitHub Pages after deployment.</div>
+
+  <div class="actions">
+    <button id="generate" type="button">Generate QR code</button>
+    <button id="download" class="secondary" type="button" disabled>Download PNG</button>
+  </div>
+  <div id="status" role="status" aria-live="polite"></div>
+  <div id="qrWrap" aria-label="Generated QR code"></div>
+
+  <div class="note">Test the downloaded QR with another phone before printing. Keep your GitHub Pages URL unchanged after printing.</div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+  referrerpolicy="no-referrer"></script>
+<script>
+(() => {
+  const urlInput = document.getElementById('siteUrl');
+  const generateButton = document.getElementById('generate');
+  const downloadButton = document.getElementById('download');
+  const qrWrap = document.getElementById('qrWrap');
+  const status = document.getElementById('status');
+  let generatedUrl = '';
+
+  function getValidUrl(value) {
+    try {
+      const url = new URL(value.trim());
+      if (url.protocol !== 'https:' || !url.hostname) return null;
+      return url.href;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  generateButton.addEventListener('click', () => {
+    const url = getValidUrl(urlInput.value);
+    if (!url) {
+      status.textContent = 'Enter a valid published HTTPS URL first.';
+      downloadButton.disabled = true;
+      qrWrap.style.display = 'none';
+      return;
+    }
+    if (typeof QRCode === 'undefined') {
+      status.textContent = 'QR library could not load. Check your internet connection and reload this page.';
+      return;
+    }
+
+    qrWrap.replaceChildren();
+    qrWrap.style.display = 'block';
+    generatedUrl = url;
+    new QRCode(qrWrap, {
+      text: generatedUrl,
+      width: 560,
+      height: 560,
+      colorDark: '#120d18',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H
+    });
+    downloadButton.disabled = false;
+    status.textContent = 'QR code created. Scan-test it before printing.';
+  });
+
+  downloadButton.addEventListener('click', () => {
+    if (!generatedUrl) return;
+    const canvas = qrWrap.querySelector('canvas');
+    const image = qrWrap.querySelector('img');
+    let dataUrl = '';
+    if (canvas) dataUrl = canvas.toDataURL('image/png');
+    else if (image && image.src.startsWith('data:image/')) dataUrl = image.src;
+
+    if (!dataUrl) {
+      status.textContent = 'QR image is not ready yet. Generate it again in a moment.';
+      return;
+    }
+    const link = document.createElement('a');
+    link.href = dataUrl;
+    link.download = 'CHEMOSPHERE-2026-QR.png';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    status.textContent = 'QR PNG download started.';
+  });
+
+  urlInput.addEventListener('input', () => {
+    downloadButton.disabled = true;
+    generatedUrl = '';
+  });
+})();
+</script>
+</body>
+</html>
